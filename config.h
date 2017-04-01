@@ -72,6 +72,8 @@ static const char *downvol[] = { "amixer", "set", "Master", "5%-", NULL };
 static const char *uplight[]   = { "xbacklight", "+5", NULL };
 static const char *downlight[] = { "xbacklight", "-5", NULL };
 
+static const char *lockscreen[] = { "xtrlock", "-b", NULL };
+
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
@@ -107,6 +109,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	{ MODKEY|ControlMask,           XK_l,      spawn,          {.v = lockscreen } },
 	{ 0,            XF86XK_AudioRaiseVolume,   spawn,          {.v = upvol } },
 	{ 0,            XF86XK_AudioLowerVolume,   spawn,          {.v = downvol } },
 	{ 0,            XF86XK_MonBrightnessUp,    spawn,          {.v = uplight } },
