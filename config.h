@@ -68,6 +68,7 @@ static const char *termcmd[]  = { "xterm", NULL };
 
 static const char *upvol[]   = { "amixer", "set", "Master", "5%+", NULL };
 static const char *downvol[] = { "amixer", "set", "Master", "5%-", NULL };
+static const char *mute[]    = { "amixer", "set", "Master", "toggle", NULL };
 
 static const char *uplight[]   = { "xbacklight", "+5", NULL };
 static const char *downlight[] = { "xbacklight", "-5", NULL };
@@ -112,6 +113,7 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,           XK_l,      spawn,          {.v = lockscreen } },
 	{ 0,            XF86XK_AudioRaiseVolume,   spawn,          {.v = upvol } },
 	{ 0,            XF86XK_AudioLowerVolume,   spawn,          {.v = downvol } },
+	{ 0,            XF86XK_AudioMute,          spawn,          {.v = mute } },
 	{ 0,            XF86XK_MonBrightnessUp,    spawn,          {.v = uplight } },
 	{ 0,            XF86XK_MonBrightnessDown,  spawn,          {.v = downlight } },
 };
