@@ -65,10 +65,10 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "xterm", NULL };
 
-static const char *upvol[] = { "amixer", "set", "Master", "5%+", NULL };
+static const char *upvol[]   = { "amixer", "set", "Master", "5%+", NULL };
 static const char *downvol[] = { "amixer", "set", "Master", "5%-", NULL };
 
-static const char *uplight[] = { "xbacklight", "+5", NULL };
+static const char *uplight[]   = { "xbacklight", "+5", NULL };
 static const char *downlight[] = { "xbacklight", "-5", NULL };
 
 static Key keys[] = {
