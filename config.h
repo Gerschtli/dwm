@@ -1,5 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
+#include <X11/XF86keysym.h>
+
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
@@ -63,6 +65,12 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "xterm", NULL };
 
+static const char *upvol[] = { "amixer", "set", "Master", "5%+", NULL };
+static const char *downvol[] = { "amixer", "set", "Master", "5%-", NULL };
+
+static const char *uplight[] = { "xbacklight", "+5", NULL };
+static const char *downlight[] = { "xbacklight", "-5", NULL };
+
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
@@ -98,6 +106,10 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	{ 0,            XF86XK_AudioRaiseVolume,   spawn,          {.v = upvol } },
+	{ 0,            XF86XK_AudioLowerVolume,   spawn,          {.v = downvol } },
+	{ 0,            XF86XK_MonBrightnessUp,    spawn,          {.v = uplight } },
+	{ 0,            XF86XK_MonBrightnessDown,  spawn,          {.v = downlight } },
 };
 
 /* button definitions */
