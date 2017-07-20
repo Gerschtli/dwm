@@ -1,0 +1,11 @@
+# Build from source
+
+```sh
+$ sudo make config.h clean install
+```
+
+# Build diff
+
+```sh
+$ git diff 6.1 > dwm-config.diff
+```
