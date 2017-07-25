@@ -77,7 +77,7 @@ static const char *mute[]    = { "amixer", "set", "Master", "toggle", NULL };
 static const char *uplight[]   = { "xbacklight", "+5", NULL };
 static const char *downlight[] = { "xbacklight", "-5", NULL };
 
-static const char *lockscreen[] = { "slock", NULL };
+static const char *lockscreen[] = { "lock-screen", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
