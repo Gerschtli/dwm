@@ -13,7 +13,7 @@ all: dwm
 
 ${OBJ}: config.h config.mk
 
-config.h:
+config.h: config.def.h
 	cp config.def.h $@
 
 dwm: ${OBJ}
