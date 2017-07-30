@@ -84,6 +84,14 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY|ALT,                   XK_p,      spawn,          {.v = qpdfcmd } },
 	{ MODKEY|ALT,                   XK_g,      spawn,          {.v = chromecmd } },
+	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	{ MODKEY|ControlMask,           XK_l,      spawn,          {.v = lockscreen } },
+	{ 0,            XF86XK_AudioRaiseVolume,   spawn,          {.v = upvol } },
+	{ 0,            XF86XK_AudioLowerVolume,   spawn,          {.v = downvol } },
+	{ 0,            XF86XK_AudioMute,          spawn,          {.v = mute } },
+	{ 0,            XF86XK_MonBrightnessUp,    spawn,          {.v = uplight } },
+	{ 0,            XF86XK_MonBrightnessDown,  spawn,          {.v = downlight } },
+
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -105,6 +113,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -114,13 +123,6 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
-	{ MODKEY|ControlMask,           XK_l,      spawn,          {.v = lockscreen } },
-	{ 0,            XF86XK_AudioRaiseVolume,   spawn,          {.v = upvol } },
-	{ 0,            XF86XK_AudioLowerVolume,   spawn,          {.v = downvol } },
-	{ 0,            XF86XK_AudioMute,          spawn,          {.v = mute } },
-	{ 0,            XF86XK_MonBrightnessUp,    spawn,          {.v = uplight } },
-	{ 0,            XF86XK_MonBrightnessDown,  spawn,          {.v = downlight } },
 };
 
 /* button definitions */
