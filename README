@@ -3,6 +3,13 @@ dwm - dynamic window manager
 dwm is an extremely fast, small, and dynamic window manager for X.
 
 
+Customizations
+--------------
+Applied systray, pertag patches and configured statusbar to show
+on all monitors.
+Added keybindings for audio, backlight, screen locker and some programs.
+
+
 Requirements
 ------------
 In order to build dwm you need the Xlib header files.
