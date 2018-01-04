@@ -196,6 +196,7 @@ static void focusin(XEvent *e);
 static void focusmon(const Arg *arg);
 static void focusstack(const Arg *arg);
 static Atom getatomprop(Client *c, Atom prop);
+static unsigned long getcolorpixel(const char color[]);
 static int getrootptr(int *x, int *y);
 static long getstate(Window w);
 static unsigned int getsystraywidth();
@@ -1003,6 +1004,17 @@ getatomprop(Client *c, Atom prop)
 	return atom;
 }
 
+unsigned long
+getcolorpixel(const char color[])
+{
+	XColor xcolor;
+	Colormap colormap;
+	colormap = DefaultColormap(dpy, 0);
+	XParseColor(dpy, colormap, color, &xcolor);
+	XAllocColor(dpy, colormap, &xcolor);
+	return xcolor.pixel;
+}
+
 int
 getrootptr(int *x, int *y)
 {
@@ -1780,6 +1792,9 @@ setup(void)
 	scheme = ecalloc(LENGTH(colors), sizeof(Clr *));
 	for (i = 0; i < LENGTH(colors); i++)
 		scheme[i] = drw_scm_create(drw, colors[i], 3);
+	/* set background */
+	XSetWindowBackground(dpy, root, getcolorpixel(col_bg));
+	XClearWindow(dpy, root);
 	/* init system tray */
 	updatesystray();
 	/* init bars */
