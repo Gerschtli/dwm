@@ -79,6 +79,11 @@ static const char *downlight[] = { "xbacklight", "-5", NULL };
 
 static const char *lockscreen[] = { "lock-screen", NULL };
 
+static const char *playerplay[] = { "playerctl", "play-pause", NULL };
+static const char *playernext[] = { "playerctl", "next", NULL };
+static const char *playerprev[] = { "playerctl", "previous", NULL };
+static const char *playerstop[] = { "playerctl", "stop", NULL };
+
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
@@ -92,6 +97,10 @@ static Key keys[] = {
 	{ 0,            XF86XK_AudioMute,          spawn,          {.v = mute } },
 	{ 0,            XF86XK_MonBrightnessUp,    spawn,          {.v = uplight } },
 	{ 0,            XF86XK_MonBrightnessDown,  spawn,          {.v = downlight } },
+	{ 0,            XF86XK_AudioPlay,          spawn,          {.v = playerplay } },
+	{ 0,            XF86XK_AudioNext,          spawn,          {.v = playernext } },
+	{ 0,            XF86XK_AudioPrev,          spawn,          {.v = playerprev } },
+	{ 0,            XF86XK_AudioStop,          spawn,          {.v = playerstop } },
 
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
