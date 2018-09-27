@@ -1,5 +1,6 @@
 /* See LICENSE file for copyright and license details. */
 
+#include <time.h>
 #include <X11/XF86keysym.h>
 
 /* appearance */
@@ -64,6 +65,31 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
+
+void
+spawncmd(const char *cmd[])
+{
+	const Arg arg = {.v = cmd };
+	spawn(&arg);
+}
+
+void
+spawnscreenshot(const Arg* arg)
+{
+	time_t t = time(NULL);
+	struct tm *to = localtime(&t);
+	char path[64];
+	strftime(path, sizeof(path), "/tmp/screenshot-%Y-%m-%d-%H-%M-%S.png", to);
+
+	if (arg->i) {
+		const char *cmd[] = { "import", path, NULL };
+		spawncmd(cmd);
+	} else {
+		const char *cmd[] = { "import", "-w", "root", path, NULL };
+		spawncmd(cmd);
+	}
+}
+
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[]  = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_main, "-sf", col_gray4, NULL };
 static const char *termcmd[]   = { "uxterm", NULL };
@@ -90,6 +116,8 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY|ALT,                   XK_p,      spawn,          {.v = qpdfcmd } },
 	{ MODKEY|ALT,                   XK_g,      spawn,          {.v = chromecmd } },
+	{ MODKEY|ShiftMask,             XK_s,      spawnscreenshot, {.i = 1} },
+	{ MODKEY|ControlMask,           XK_s,      spawnscreenshot, {.i = 0} },
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 	{ MODKEY|ControlMask,           XK_l,      spawn,          {.v = lockscreen } },
 	{ 0,            XF86XK_AudioRaiseVolume,   spawn,          {.v = upvol } },
@@ -153,3 +181,5 @@ static Button buttons[] = {
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };
+
+// vim: set noexpandtab :
