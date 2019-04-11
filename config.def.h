@@ -99,8 +99,8 @@ static const char *upvol[]   = { "amixer", "set", "Master", "1%+", NULL };
 static const char *downvol[] = { "amixer", "set", "Master", "1%-", NULL };
 static const char *mute[]    = { "amixer", "set", "Master", "toggle", NULL };
 
-static const char *uplight[]   = { "xbacklight", "+5", NULL };
-static const char *downlight[] = { "xbacklight", "-5", NULL };
+static const char *uplight[]   = { "light", "-A", "5", NULL };
+static const char *downlight[] = { "light", "-U", "5", NULL };
 
 static const char *lockscreen[] = { "lock-screen", NULL };
 
