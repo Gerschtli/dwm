@@ -4,8 +4,8 @@
 $ sudo make config.h clean install
 ```
 
-# Build diff
+# Build patch
 
 ```sh
-$ git diff 6.1 > dwm-config.diff
+$ ./create-patch.sh 6.2
 ```

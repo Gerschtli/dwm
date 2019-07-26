@@ -1,4 +1,4 @@
 *.o
 config.h
 dwm
-dwm-config.diff
+travis-test.diff
