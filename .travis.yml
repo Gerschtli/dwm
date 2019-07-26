@@ -1,0 +1,13 @@
+language: minimal
+
+env:
+  - VERSION=6.2
+
+install:
+  - ./create-patch.sh "${VERSION}" travis-test.diff
+  - git remote add upstream git://git.suckless.org/dwm
+  - git fetch --all
+
+script:
+  - cmp --silent travis-test.diff "patch-${VERSION}.diff"
+  - git branch -a --merged | grep remotes/upstream/master > /dev/null 2>&1
