@@ -48,7 +48,7 @@ index 0000000..cc4ce00
 +$ ./create-patch.sh 6.2
 +```
 diff --git c/config.def.h w/config.def.h
-index 1c0b587..1d6f4f7 100644
+index 1c0b587..f3a1416 100644
 --- c/config.def.h
 +++ w/config.def.h
 @@ -1,21 +1,29 @@
@@ -109,7 +109,7 @@ index 1c0b587..1d6f4f7 100644
  #define TAGKEYS(KEY,TAG) \
  	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
  	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
-@@ -55,14 +64,71 @@ static const Layout layouts[] = {
+@@ -55,14 +64,57 @@ static const Layout layouts[] = {
  #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
  
  /* commands */
@@ -121,30 +121,16 @@ index 1c0b587..1d6f4f7 100644
 +	spawn(&arg);
 +}
 +
-+void
-+spawnscreenshot(const Arg* arg)
-+{
-+	time_t t = time(NULL);
-+	struct tm *to = localtime(&t);
-+	char path[64];
-+	strftime(path, sizeof(path), "/tmp/screenshot-%Y-%m-%d-%H-%M-%S.png", to);
-+
-+	if (arg->i) {
-+		const char *cmd[] = { "import", path, NULL };
-+		spawncmd(cmd);
-+	} else {
-+		const char *cmd[] = { "import", "-w", "root", path, NULL };
-+		spawncmd(cmd);
-+	}
-+}
-+
  static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 -static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 -static const char *termcmd[]  = { "st", NULL };
 +static const char *dmenucmd[]  = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_main, "-sf", col_gray4, NULL };
 +static const char *termcmd[]   = { "urxvt", NULL };
 +static const char *qpdfcmd[]   = { "qpdfview", NULL };
-+static const char *chromecmd[] = { "chrome", NULL };
++static const char *chromecmd[] = { "google-chrome-stable", NULL };
++
++static const char *screenshotroot[] = { "scrot", "/tmp/screenshot-%Y-%m-%d-%H-%M-%S.png", NULL };
++static const char *screenshotselection[] = { "scrot", "/tmp/screenshot-%Y-%m-%d-%H-%M-%S.png", "--select", NULL };
 +
 +static const char *upvol[]   = { "amixer", "set", "Master", "1%+", NULL };
 +static const char *downvol[] = { "amixer", "set", "Master", "1%-", NULL };
@@ -166,8 +152,8 @@ index 1c0b587..1d6f4f7 100644
  	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 +	{ MODKEY|ALT,                   XK_p,      spawn,          {.v = qpdfcmd } },
 +	{ MODKEY|ALT,                   XK_g,      spawn,          {.v = chromecmd } },
-+	{ MODKEY|ShiftMask,             XK_s,      spawnscreenshot, {.i = 1} },
-+	{ MODKEY|ControlMask,           XK_s,      spawnscreenshot, {.i = 0} },
++	{ MODKEY|ControlMask,           XK_s,      spawn,          {.v = screenshotroot} },
++	{ MODKEY|ShiftMask,             XK_s,      spawn,          {.v = screenshotselection} },
 +	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 +	{ MODKEY|ControlMask,           XK_l,      spawn,          {.v = lockscreen } },
 +	{ 0,            XF86XK_AudioRaiseVolume,   spawn,          {.v = upvol } },
@@ -183,7 +169,7 @@ index 1c0b587..1d6f4f7 100644
  	{ MODKEY,                       XK_b,      togglebar,      {0} },
  	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
  	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-@@ -84,6 +150,9 @@ static Key keys[] = {
+@@ -84,6 +136,9 @@ static Key keys[] = {
  	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
  	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
  	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
@@ -193,7 +179,7 @@ index 1c0b587..1d6f4f7 100644
  	TAGKEYS(                        XK_1,                      0)
  	TAGKEYS(                        XK_2,                      1)
  	TAGKEYS(                        XK_3,                      2)
-@@ -93,7 +162,6 @@ static Key keys[] = {
+@@ -93,7 +148,6 @@ static Key keys[] = {
  	TAGKEYS(                        XK_7,                      6)
  	TAGKEYS(                        XK_8,                      7)
  	TAGKEYS(                        XK_9,                      8)
@@ -201,7 +187,7 @@ index 1c0b587..1d6f4f7 100644
  };
  
  /* button definitions */
-@@ -113,3 +181,4 @@ static Button buttons[] = {
+@@ -113,3 +167,4 @@ static Button buttons[] = {
  	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
  };
  
