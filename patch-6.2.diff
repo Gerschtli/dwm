@@ -48,7 +48,7 @@ index 0000000..cc4ce00
 +$ ./create-patch.sh 6.2
 +```
 diff --git c/config.def.h w/config.def.h
-index 1c0b587..f3a1416 100644
+index 1c0b587..d666aec 100644
 --- c/config.def.h
 +++ w/config.def.h
 @@ -1,21 +1,29 @@
@@ -130,7 +130,7 @@ index 1c0b587..f3a1416 100644
 +static const char *chromecmd[] = { "google-chrome-stable", NULL };
 +
 +static const char *screenshotroot[] = { "scrot", "/tmp/screenshot-%Y-%m-%d-%H-%M-%S.png", NULL };
-+static const char *screenshotselection[] = { "scrot", "/tmp/screenshot-%Y-%m-%d-%H-%M-%S.png", "--select", NULL };
++static const char *screenshotselection[] = { "sh", "-c", "sleep 0.2 && scrot /tmp/screenshot-%Y-%m-%d-%H-%M-%S.png --select", NULL };
 +
 +static const char *upvol[]   = { "amixer", "set", "Master", "1%+", NULL };
 +static const char *downvol[] = { "amixer", "set", "Master", "1%-", NULL };
