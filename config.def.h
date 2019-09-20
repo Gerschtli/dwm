@@ -72,7 +72,7 @@ static const char *qpdfcmd[]   = { "qpdfview", NULL };
 static const char *chromecmd[] = { "google-chrome-stable", NULL };
 
 static const char *screenshotroot[] = { "scrot", "/tmp/screenshot-%Y-%m-%d-%H-%M-%S.png", NULL };
-static const char *screenshotselection[] = { "scrot", "/tmp/screenshot-%Y-%m-%d-%H-%M-%S.png", "--select", NULL };
+static const char *screenshotselection[] = { "sh", "-c", "sleep 0.2 && scrot /tmp/screenshot-%Y-%m-%d-%H-%M-%S.png --select", NULL };
 
 static const char *upvol[]   = { "amixer", "set", "Master", "1%+", NULL };
 static const char *downvol[] = { "amixer", "set", "Master", "1%-", NULL };
