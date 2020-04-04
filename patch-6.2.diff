@@ -192,6 +192,19 @@ index 1c0b587..d666aec 100644
  };
  
 +// vim: set noexpandtab :
+diff --git c/config.mk w/config.mk
+index 6d36cb7..7084c33 100644
+--- c/config.mk
++++ w/config.mk
+@@ -25,7 +25,7 @@ INCS = -I${X11INC} -I${FREETYPEINC}
+ LIBS = -L${X11LIB} -lX11 ${XINERAMALIBS} ${FREETYPELIBS}
+ 
+ # flags
+-CPPFLAGS = -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_POSIX_C_SOURCE=2 -DVERSION=\"${VERSION}\" ${XINERAMAFLAGS}
++CPPFLAGS = -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_POSIX_C_SOURCE=200809L -DVERSION=\"${VERSION}\" ${XINERAMAFLAGS}
+ #CFLAGS   = -g -std=c99 -pedantic -Wall -O0 ${INCS} ${CPPFLAGS}
+ CFLAGS   = -std=c99 -pedantic -Wall -Wno-deprecated-declarations -Os ${INCS} ${CPPFLAGS}
+ LDFLAGS  = ${LIBS}
 diff --git c/dwm.c w/dwm.c
 index 4465af1..cbf35c5 100644
 --- c/dwm.c
