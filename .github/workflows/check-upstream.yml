@@ -1,0 +1,15 @@
+name: Check upstream
+on:
+  schedule:
+    - cron: 0 0 * * 1
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check upstream
+        run: |
+          git remote add upstream git://git.suckless.org/dwm
+          git fetch --all
+          git branch -a --merged | grep remotes/upstream/master > /dev/null 2>&1
