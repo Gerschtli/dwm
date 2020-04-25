@@ -5,13 +5,22 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      version: 6.2
+      filename: actions-test.diff
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Fetch tags
+        run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+
+      - name: Create patch
+        run: ./create-patch.sh ${{env.version}} ${{env.filename}}
+
       - name: Check patch
-        run: |
-          VERSION=6.2
-          ./create-patch.sh "${VERSION}" actions-test.diff
-          cmp --silent actions-test.diff "patch-${VERSION}.diff"
+        run: cmp --silent ${{env.filename}} patch-${{env.version}}.diff
 
       - name: Repository Dispatch to home-manager-configurations
         uses: peter-evans/repository-dispatch@v1
