@@ -1,14 +1,18 @@
-name: Update home-manager-configurations
+name: Build
 on:
   push:
-    branches:
-      - master
 
 jobs:
-  sendDispatch:
+  build:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Check patch
+        run: |
+          VERSION=6.2
+          ./create-patch.sh "${VERSION}" actions-test.diff
+          cmp --silent actions-test.diff "patch-${VERSION}.diff"
+
       - name: Repository Dispatch to home-manager-configurations
         uses: peter-evans/repository-dispatch@v1
         with:
