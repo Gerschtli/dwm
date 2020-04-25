@@ -1,0 +1,18 @@
+name: Update home-manager-configurations
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  sendDispatch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repository Dispatch to home-manager-configurations
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          repository: Gerschtli/home-manager-configurations
+          event-type: update-dwm
+          client-payload: '{"commit_id": "${{ github.sha }}"}'
