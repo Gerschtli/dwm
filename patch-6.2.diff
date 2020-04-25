@@ -1,3 +1,20 @@
+diff --git c/.editorconfig w/.editorconfig
+new file mode 100644
+index 0000000..3bb3187
+--- /dev/null
++++ w/.editorconfig
+@@ -0,0 +1,11 @@
++root = true
++
++[*]
++end_of_line = lf
++charset = utf-8
++trim_trailing_whitespace = true
++insert_final_newline = true
++
++[*.yml]
++indent_style = space
++indent_size = 2
 diff --git c/Makefile w/Makefile
 index 77bcbc0..3c89802 100644
 --- c/Makefile
