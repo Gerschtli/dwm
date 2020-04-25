@@ -1,0 +1,14 @@
+name: Check patch
+on:
+  push:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check patch
+        run: |
+          VERSION=6.2
+          ./create-patch.sh "${VERSION}" actions-test.diff
+          cmp --silent actions-test.diff "patch-${VERSION}.diff"
