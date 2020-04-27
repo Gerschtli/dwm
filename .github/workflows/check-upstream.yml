@@ -10,9 +10,13 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
-      - name: Check upstream
+      - name: Fetch upstream
         run: |
           git remote add upstream git://git.suckless.org/dwm
           git fetch --all
-          git branch -a --merged | grep remotes/upstream/master > /dev/null 2>&1
+
+      - name: Check upstream
+        run: git branch -a --merged | grep remotes/upstream/master > /dev/null 2>&1
