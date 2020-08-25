@@ -248,7 +248,7 @@ index 13b3729..ddc8321 100644
  .SS Status bar
  .TP
 diff --git c/dwm.c w/dwm.c
-index 4465af1..b4bf4a0 100644
+index 4465af1..323a32c 100644
 --- c/dwm.c
 +++ w/dwm.c
 @@ -57,12 +57,30 @@
@@ -405,6 +405,15 @@ index 4465af1..b4bf4a0 100644
  /* compile-time check if all tags fit into an unsigned int bit array. */
  struct NumTags { char limitexceeded[LENGTH(tags) > 31 ? -1 : 1]; };
  
+@@ -439,7 +488,7 @@ buttonpress(XEvent *e)
+ 			arg.ui = 1 << i;
+ 		} else if (ev->x < x + blw)
+ 			click = ClkLtSymbol;
+-		else if (ev->x > selmon->ww - TEXTW(stext))
++		else if (ev->x > selmon->ww - (int)TEXTW(stext))
+ 			click = ClkStatusText;
+ 		else
+ 			click = ClkWinTitle;
 @@ -482,6 +531,11 @@ cleanup(void)
  	XUngrabKey(dpy, AnyKey, AnyModifier, root);
  	while (mons)
