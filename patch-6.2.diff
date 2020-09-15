@@ -65,7 +65,7 @@ index 0000000..cc4ce00
 +$ ./create-patch.sh 6.2
 +```
 diff --git c/config.def.h w/config.def.h
-index 1c0b587..d666aec 100644
+index 1c0b587..dd47ed4 100644
 --- c/config.def.h
 +++ w/config.def.h
 @@ -1,21 +1,29 @@
@@ -116,7 +116,7 @@ index 1c0b587..d666aec 100644
  static const int nmaster     = 1;    /* number of clients in master area */
  static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
  
-@@ -44,7 +52,8 @@ static const Layout layouts[] = {
+@@ -44,25 +52,68 @@ static const Layout layouts[] = {
  };
  
  /* key definitions */
@@ -126,8 +126,12 @@ index 1c0b587..d666aec 100644
  #define TAGKEYS(KEY,TAG) \
  	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
  	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
-@@ -55,14 +64,57 @@ static const Layout layouts[] = {
- #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
+ 	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
+ 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
+ 
+-/* helper for spawning shell commands in the pre dwm-5.0 fashion */
+-#define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
++#define SHCMD(cmd) { (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
  
  /* commands */
 +
@@ -146,8 +150,8 @@ index 1c0b587..d666aec 100644
 +static const char *qpdfcmd[]   = { "qpdfview", NULL };
 +static const char *chromecmd[] = { "google-chrome-stable", NULL };
 +
-+static const char *screenshotroot[] = { "scrot", "/tmp/screenshot-%Y-%m-%d-%H-%M-%S.png", NULL };
-+static const char *screenshotselection[] = { "sh", "-c", "sleep 0.2 && scrot /tmp/screenshot-%Y-%m-%d-%H-%M-%S.png --select", NULL };
++static const char *screenshotroot[] = SHCMD("mkdir -p /tmp/screenshot && scrot /tmp/screenshot/%Y-%m-%d-%H-%M-%S.png");
++static const char *screenshotselection[] = SHCMD("sleep 0.2 && mkdir -p /tmp/screenshot && scrot /tmp/screenshot/%Y-%m-%d-%H-%M-%S.png --select");
 +
 +static const char *upvol[]   = { "amixer", "set", "Master", "1%+", NULL };
 +static const char *downvol[] = { "amixer", "set", "Master", "1%-", NULL };
@@ -186,7 +190,7 @@ index 1c0b587..d666aec 100644
  	{ MODKEY,                       XK_b,      togglebar,      {0} },
  	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
  	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-@@ -84,6 +136,9 @@ static Key keys[] = {
+@@ -84,6 +135,9 @@ static Key keys[] = {
  	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
  	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
  	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
@@ -196,7 +200,7 @@ index 1c0b587..d666aec 100644
  	TAGKEYS(                        XK_1,                      0)
  	TAGKEYS(                        XK_2,                      1)
  	TAGKEYS(                        XK_3,                      2)
-@@ -93,7 +148,6 @@ static Key keys[] = {
+@@ -93,7 +147,6 @@ static Key keys[] = {
  	TAGKEYS(                        XK_7,                      6)
  	TAGKEYS(                        XK_8,                      7)
  	TAGKEYS(                        XK_9,                      8)
@@ -204,7 +208,7 @@ index 1c0b587..d666aec 100644
  };
  
  /* button definitions */
-@@ -113,3 +167,4 @@ static Button buttons[] = {
+@@ -113,3 +166,4 @@ static Button buttons[] = {
  	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
  };
  
