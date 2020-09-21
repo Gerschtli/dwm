@@ -61,8 +61,6 @@ static const Layout layouts[] = {
 	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
-#define SHCMD(cmd) { (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
-
 /* commands */
 
 void
@@ -78,8 +76,8 @@ static const char *termcmd[]   = { "urxvt", NULL };
 static const char *qpdfcmd[]   = { "qpdfview", NULL };
 static const char *chromecmd[] = { "google-chrome-stable", NULL };
 
-static const char *screenshotroot[] = SHCMD("mkdir -p /tmp/screenshot && scrot /tmp/screenshot/%Y-%m-%d-%H-%M-%S.png");
-static const char *screenshotselection[] = SHCMD("sleep 0.2 && mkdir -p /tmp/screenshot && scrot /tmp/screenshot/%Y-%m-%d-%H-%M-%S.png --select");
+static const char *screenshotroot[] = { "bash", "-c", "mkdir -p /tmp/screenshot && scrot /tmp/screenshot/%Y-%m-%d-%H-%M-%S.png", NULL };
+static const char *screenshotselection[] = { "bash", "-c", "sleep 0.2 && mkdir -p /tmp/screenshot && scrot /tmp/screenshot/%Y-%m-%d-%H-%M-%S.png --select", NULL };
 
 static const char *upvol[]   = { "amixer", "set", "Master", "1%+", NULL };
 static const char *downvol[] = { "amixer", "set", "Master", "1%-", NULL };
