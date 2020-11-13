@@ -1202,3 +1202,14 @@ index 4465af1..323a32c 100644
  void
  zoom(const Arg *arg)
  {
+diff --git c/renovate.json w/renovate.json
+new file mode 100644
+index 0000000..f45d8f1
+--- /dev/null
++++ w/renovate.json
+@@ -0,0 +1,5 @@
++{
++  "extends": [
++    "config:base"
++  ]
++}
