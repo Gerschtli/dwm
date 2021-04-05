@@ -251,7 +251,7 @@ index 13b3729..ddc8321 100644
  .SS Status bar
  .TP
 diff --git c/dwm.c w/dwm.c
-index 4465af1..323a32c 100644
+index 4465af1..05d5f34 100644
 --- c/dwm.c
 +++ w/dwm.c
 @@ -57,12 +57,30 @@
@@ -591,6 +591,15 @@ index 4465af1..323a32c 100644
  }
  
  void
+@@ -834,7 +956,7 @@ focusstack(const Arg *arg)
+ {
+ 	Client *c = NULL, *i;
+ 
+-	if (!selmon->sel)
++	if (!selmon->sel || selmon->sel->isfullscreen)
+ 		return;
+ 	if (arg->i > 0) {
+ 		for (c = selmon->sel->next; c && !ISVISIBLE(c); c = c->next);
 @@ -862,15 +984,33 @@ getatomprop(Client *c, Atom prop)
  	unsigned long dl;
  	unsigned char *p = NULL;
