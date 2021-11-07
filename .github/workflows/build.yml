@@ -5,45 +5,16 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      version: 6.2
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Fetch tags
-        run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-
-      - name: Create patch
-        run: ./create-patch.sh ${{env.version}}
-
-      - name: Check patch
-        run: git diff --exit-code
-        id: check-patch
-        continue-on-error: true
-
-      - name: Commit and push changes
-        uses: github-actions-x/commit@v2.8
+      - name: Install nix
+        uses: cachix/install-nix-action@v14
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: Update patch
-          name: Update Bot
-          email: update@bot
-          rebase: true
-        if: steps.check-patch.outcome == 'failure'
+          extra_nix_config: |
+            experimental-features = nix-command flakes
 
-
-  update-nur-packages:
-    if: github.ref == 'refs/heads/master'
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Repository Dispatch to nur-packages
-        uses: peter-evans/repository-dispatch@v1
-        with:
-          token: ${{ secrets.REPO_ACCESS_TOKEN }}
-          repository: Gerschtli/nur-packages
-          event-type: update-dwm
-          client-payload: '{"commit_id": "${{ github.sha }}"}'
+      - name: Check flake
+        run: nix flake check --log-format bar-with-logs
