@@ -71,6 +71,8 @@ static const char *chromecmd[] = { "google-chrome-stable", NULL };
 static const char *screenshotroot[] = { "bash", "-c", "mkdir -p /tmp/screenshot && scrot /tmp/screenshot/%Y-%m-%d-%H-%M-%S.png", NULL };
 static const char *screenshotselection[] = { "bash", "-c", "sleep 0.2 && mkdir -p /tmp/screenshot && scrot /tmp/screenshot/%Y-%m-%d-%H-%M-%S.png --select", NULL };
 
+static const char *dunstcloseall[] = { "dunstctl", "close-all", NULL };
+
 static const char *upvol[]   = { "amixer", "set", "Master", "1%+", NULL };
 static const char *downvol[] = { "amixer", "set", "Master", "1%-", NULL };
 static const char *mute[]    = { "amixer", "set", "Master", "toggle", NULL };
@@ -93,6 +95,7 @@ static const Key keys[] = {
 	{ MODKEY|ALT,                   XK_g,      spawn,          {.v = chromecmd } },
 	{ MODKEY|ControlMask,           XK_s,      spawn,          {.v = screenshotroot} },
 	{ MODKEY|ShiftMask,             XK_s,      spawn,          {.v = screenshotselection} },
+	{ MODKEY|ControlMask,           XK_space,  spawn,          {.v = dunstcloseall} },
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 	{ MODKEY|ControlMask,           XK_l,      spawn,          {.v = lockscreen } },
 	{ 0,            XF86XK_AudioRaiseVolume,   spawn,          {.v = upvol } },
