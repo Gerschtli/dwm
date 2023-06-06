@@ -36,6 +36,7 @@ static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
 	{ "Java",     "java",     "Eclipse",  0,            1,           -1 }, // eclipse splash screen
+	{ "zenity",   "zenity",   "Question", 0,            1,           -1 }, // gnome zenity
 };
 
 /* layout(s) */
