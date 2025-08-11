@@ -9,7 +9,7 @@
 
       overlay = final: prev: {
         dwm = prev.dwm.overrideAttrs (old: {
-          version = "6.5";
+          version = "6.6";
           src = builtins.path { path = ./.; name = "dwm"; };
         });
       };
